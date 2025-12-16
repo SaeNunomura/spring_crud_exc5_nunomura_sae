@@ -12,12 +12,12 @@ public class EmployeeForm {
 
 	/** パスワード */
 	@NotBlank
-	@Size(max=16)
+	@Size(min=1,max=16)
 	private String empPass;
 
 	/** 社員名 */
 	@NotBlank
-	@Size(max=30)
+	@Size(min=1,max=30)
 	private String empName;
 
 	/** 性別 */
@@ -25,7 +25,7 @@ public class EmployeeForm {
 
 	/** 住所 */
 	@NotBlank
-	@Size(max=60)
+	@Size(min=1,max=60)
 	private String address;
 
 	/** 生年月日 */

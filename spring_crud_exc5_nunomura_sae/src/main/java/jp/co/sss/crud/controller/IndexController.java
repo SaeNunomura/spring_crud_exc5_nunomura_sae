@@ -33,16 +33,6 @@ public class IndexController {
 
 		if (result.hasErrors()) {
 			path = "index";
-			
-//			LoginResultBean loginResultBean = loginService.execute(loginForm);
-//
-//			if (loginResultBean.isLogin()) {
-//				sesson.setAttribute("loginUser", loginResultBean.getLoginUser());
-//				path = "redirect:/list";
-//			} else {
-//				model.addAttribute("errMessage", loginResultBean.getErrorMsg());
-//				path = "index";
-//			}
 
 			return path;
 
@@ -55,7 +45,7 @@ public class IndexController {
 				model.addAttribute("errMessage", loginResultBean.getErrorMsg());
 				path = "index";
 			}
-//			path = "redirect:/list";
+
 			return path;
 		}
 
