@@ -29,21 +29,33 @@ public class IndexController {
 	public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, Model model,
 			HttpSession sesson) {
 
-		String path = "index";
+		String path = "";
 
 		if (result.hasErrors()) {
-			LoginResultBean loginResultBean = loginService.execute(loginForm);
+			path = "index";
+			
+//			LoginResultBean loginResultBean = loginService.execute(loginForm);
+//
+//			if (loginResultBean.isLogin()) {
+//				sesson.setAttribute("loginUser", loginResultBean.getLoginUser());
+//				path = "redirect:/list";
+//			} else {
+//				model.addAttribute("errMessage", loginResultBean.getErrorMsg());
+//				path = "index";
+//			}
 
+			return path;
+
+		} else {
+			LoginResultBean loginResultBean = loginService.execute(loginForm);
 			if (loginResultBean.isLogin()) {
 				sesson.setAttribute("loginUser", loginResultBean.getLoginUser());
 				path = "redirect:/list";
 			} else {
 				model.addAttribute("errMessage", loginResultBean.getErrorMsg());
+				path = "index";
 			}
-
-			return path;
-		} else {
-			path = "redirect:/list";
+//			path = "redirect:/list";
 			return path;
 		}
 

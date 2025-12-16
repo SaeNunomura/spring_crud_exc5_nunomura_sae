@@ -14,6 +14,7 @@
 				<div class="label">パスワード：</div>
 				<div class="input required">
 					<input type="password" th:field="*{empPass}" />
+					<span th:errors="*{empPass}"></span>
 				</div>
 			</div>
 			
