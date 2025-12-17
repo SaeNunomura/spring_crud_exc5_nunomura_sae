@@ -3,6 +3,8 @@ package jp.co.sss.crud.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.sss.crud.bean.EmployeeBean;
+import jp.co.sss.crud.bean.LoginResultBean;
 import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.EmployeeForm;
 import jp.co.sss.crud.repository.EmployeeRepository;
@@ -39,8 +41,11 @@ public class UpdateEmployeeService {
 	 */
 	//TODO ここに記述
 
-	public void execute(EmployeeForm employeeForm) {
+	public LoginResultBean execute(EmployeeForm employeeForm) {
 		Employee emp = BeanManager.copyFormToEntity(employeeForm);
 		emp = reposiory.save(emp);
+		EmployeeBean empBean = BeanManager.copyEntityToBean(emp);
+		LoginResultBean loginResultBean = LoginResultBean.succeedLogin(empBean);
+		return loginResultBean;
 	}
 }

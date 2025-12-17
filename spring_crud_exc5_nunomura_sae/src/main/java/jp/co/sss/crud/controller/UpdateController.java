@@ -5,11 +5,15 @@ import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jp.co.sss.crud.bean.EmployeeBean;
+import jp.co.sss.crud.bean.LoginResultBean;
 import jp.co.sss.crud.form.EmployeeForm;
 import jp.co.sss.crud.service.SearchForEmployeesByEmpIdService;
 import jp.co.sss.crud.service.UpdateEmployeeService;
@@ -56,9 +60,15 @@ public class UpdateController {
 	 * @return 遷移先のビュー
 	 */
 	@RequestMapping(path = "/update/check", method = RequestMethod.POST)
-	public String checkUpdate(@ModelAttribute EmployeeForm employeeForm) {
+	public String checkUpdate(@Valid @ModelAttribute EmployeeForm employeeForm,  BindingResult result, Model model) {
 
-		return "update/update_check";
+		if (result.hasErrors()) {
+			return "update/update_input";
+		} else {
+			return "update/update_check";
+		}
+		
+		
 	}
 
 	/**
@@ -80,10 +90,11 @@ public class UpdateController {
 	 * @return 遷移先のビュー
 	 */
 	@RequestMapping(path = "/update/complete", method = RequestMethod.POST)
-	public String completeUpdate(EmployeeForm employeeForm) {
+	public String completeUpdate(EmployeeForm employeeForm, HttpSession session) {
 
 		//TODO UpdateEmployeeService完成後にコメントを外す
-				updateEmployeeService.execute(employeeForm);
+		LoginResultBean loginResultBean = updateEmployeeService.execute(employeeForm);
+		session.setAttribute("loginUser", loginResultBean.getLoginUser());
 
 		return "redirect:/update/complete";
 	}

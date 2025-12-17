@@ -158,3 +158,9 @@ input[type=submit] {
 	color: #FF0000;
 }
 
+.input_errMessage {
+	color: #FF0000;
+	margin-left: 5px;
+	margin-top: -5px;
+}
+
