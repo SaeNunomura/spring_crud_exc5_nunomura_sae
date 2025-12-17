@@ -4,6 +4,7 @@ import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class EmployeeForm {
@@ -13,6 +14,7 @@ public class EmployeeForm {
 	/** パスワード */
 	@NotBlank
 	@Size(min=1,max=16)
+	@Pattern(regexp = "[0-9]+")
 	private String empPass;
 
 	/** 社員名 */
