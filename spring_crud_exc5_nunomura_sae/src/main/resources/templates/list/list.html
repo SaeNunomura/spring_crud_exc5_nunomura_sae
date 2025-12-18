@@ -9,9 +9,11 @@
 <body class="admin user_list">
 	<h3>社員一覧画面</h3>
 
+<th:block th:if="${session.loginUser.authority==2}">
 	<div class="regist_link">
 		<a th:href="@{/regist/input}">新規社員登録</a>
 	</div>
+</th:block>
 
 	<!--	該当社員が0名の場合-->
 	<th:block th:if="${#lists.isEmpty(employees)}">
@@ -27,13 +29,17 @@
 		<tr>
 			<th>社員ID</th>
 			<th>社員名</th>
+			<th:block th:if="${session.loginUser.authority==2}">
 			<th class="gender">性別</th>
 			<th class="address">住所</th>
 			<th class="birthday">生年月日</th>
 			<th class="authority">権限</th>
+			</th:block>
 			<th class="deptName">部署名</th>
+			<th:block th:if="${session.loginUser.authority==2}">
 			<th class="button">変更</th>
 			<th class="button">削除</th>
+			</th:block>
 		</tr>
 		<tr th:each="employee: ${employees}">
 			<td th:text="${employee.empId}"></td>
@@ -42,6 +48,7 @@
 				th:switchとth:caseはJavaのswitch文の様に条件分岐を表現できる
 				この場合はgender=1の場合[男性]、gender=2の場合[女性]と表示される
 			-->
+			<th:block th:if="${session.loginUser.authority==2}">
 			<td th:switch="${employee.gender}">
 				<span th:case="1">男性</span> <span th:case="2">女性</span>
 			</td>
@@ -50,7 +57,9 @@
 			<td th:switch="${employee.authority}">
 				<span th:case="1">一般</span> <span th:case="2">管理者</span>
 			</td>
+			</th:block>
 			<td th:text="${employee.deptName}"></td>
+			<th:block th:if="${session.loginUser.authority==2}">
 			<td>
 				<form method="get" th:action="@{/update/input}">
 					<input type="hidden" name="empId" th:value="${employee.empId}" />
@@ -63,6 +72,7 @@
 					<input type="submit" value="削除" class="delete" />
 				</form>
 			</td>
+			</th:block>
 		</tr>
 	</table>
 </body>

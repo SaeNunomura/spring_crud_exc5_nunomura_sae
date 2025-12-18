@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+
 <head>
-<title>会員変更入力 | シェアードショップ</title>
-<meta charset="UTF-8" />
+	<title>会員変更入力 | シェアードショップ</title>
+	<meta charset="UTF-8" />
 </head>
+
 <body th:object="${userForm}" class="admin user_update_input_admin">
 	<h3>社員変更入力画面</h3>
-	
+
 	<div class="update">
 		<form th:action="@{/update/check}" method="post" th:object="${employeeForm}">
-	
+
 			<div class="form">
 				<div class="label">パスワード：</div>
 				<div class="input required">
@@ -18,7 +19,7 @@
 					<span th:errors="*{empPass}" class="input_errMessage"></span>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">社員名：</div>
 				<div class="input required">
@@ -26,7 +27,7 @@
 					<span th:errors="*{empName}" class="input_errMessage"></span>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">性別：</div>
 				<div class="input">
@@ -34,7 +35,7 @@
 					<input type="radio" th:field="*{gender}" value="2" />女性
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">住所：</div>
 				<div class="input required">
@@ -42,7 +43,7 @@
 					<span th:errors="*{address}" class="input_errMessage"></span>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">生年月日：(YYYY/MM/DD)</div>
 				<div class="input required">
@@ -51,14 +52,33 @@
 				</div>
 			</div>
 
-			<div class="form">
-				<div class="label">権限：</div>
-				<div class="input">
-					<input type="radio" th:field="*{authority}" value="1" />一般&nbsp;&nbsp;
-					<input type="radio" th:field="*{authority}" value="2" />管理者
+			<!--			<th:block th:if="${session.loginUser.authority==2}">-->
+			<!--			<div class="form">-->
+			<!--				<div class="label">権限：</div>-->
+			<!--				<div class="input">-->
+			<!--					<input type="radio" th:field="*{authority}" value="1" />一般&nbsp;&nbsp;-->
+			<!--					<input type="radio" th:field="*{authority}" value="2" />管理者-->
+			<!--				</div>-->
+			<!--			</div>-->
+			<!--			</th:block>-->
+
+			<div th:switch="${session.loginUser.authority}">
+				<div th:case="1">
+					<div class="input">
+						<input type="hidden" th:field="*{authority}" value="${session.loginUser.authority}" />
+					</div>
+				</div>
+				<div th:case="2">
+					<div class="form">
+						<div class="label">権限：</div>
+						<div class="input">
+							<input type="radio" th:field="*{authority}" value="1" />一般
+							<input type="radio" th:field="*{authority}" value="2" />管理者
+						</div>
+					</div>
 				</div>
 			</div>
-	
+
 			<div class="form">
 				<div class="label">部署名：</div>
 				<div class="input">
@@ -68,8 +88,8 @@
 						<option value="3">総務部</option>
 					</select>
 				</div>
-	        </div>
-	        
+			</div>
+
 			<div class="form">
 				<div class="label"></div>
 				<div class="input">
@@ -78,7 +98,7 @@
 				</div>
 			</div>
 		</form>
-	
+
 		<form th:action="@{/list}" name="back">
 			<div class="form">
 				<div class="label"></div>
@@ -89,4 +109,5 @@
 		</form>
 	</div>
 </body>
+
 </html>

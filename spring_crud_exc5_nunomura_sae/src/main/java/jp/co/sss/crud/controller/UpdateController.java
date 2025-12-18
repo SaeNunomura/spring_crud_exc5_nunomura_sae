@@ -9,7 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.co.sss.crud.bean.EmployeeBean;
@@ -39,8 +41,9 @@ public class UpdateController {
 	 * @throws ParseException 
 	 */
 	@RequestMapping(path = "/update/input", method = RequestMethod.GET)
-	public String inputUpdate(Integer empId, @ModelAttribute EmployeeForm employeeForm, Model model) {
+	public String inputUpdate(@RequestParam Integer empId, @ModelAttribute EmployeeForm employeeForm, Model model) {
 
+		System.out.println("リクエストempId:" + empId);
 		//TODO SearchForEmployeesByEmpIdService完成後にコメントを外す
 		EmployeeBean employee = searchForEmployeesByEmpIdService.execute(empId);
 
@@ -65,6 +68,7 @@ public class UpdateController {
 		if (result.hasErrors()) {
 			return "update/update_input";
 		} else {
+			System.out.println("check時のリクエストempId:" + employeeForm.getEmpId());
 			return "update/update_check";
 		}
 		
@@ -90,13 +94,20 @@ public class UpdateController {
 	 * @return 遷移先のビュー
 	 */
 	@RequestMapping(path = "/update/complete", method = RequestMethod.POST)
-	public String completeUpdate(EmployeeForm employeeForm, HttpSession session) {
+	public String completeUpdate(EmployeeForm employeeForm, HttpSession session,HttpServletRequest request) {
 
 		//TODO UpdateEmployeeService完成後にコメントを外す
 		LoginResultBean loginResultBean = updateEmployeeService.execute(employeeForm);
-		session.setAttribute("loginUser", loginResultBean.getLoginUser());
-
-		return "redirect:/update/complete";
+		EmployeeBean loginUserBean = (EmployeeBean) request.getSession().getAttribute("loginUser");
+		if(loginUserBean.getAuthority() == 2 && loginUserBean.getEmpId() != loginResultBean.getLoginUser().getEmpId()) {
+				System.out.println("complete時のリクエストempId" + loginUserBean.getEmpId());
+				return "redirect:/update/complete";
+		} else {
+			session.setAttribute("loginUser", loginResultBean.getLoginUser());
+			session.setAttribute("empId", loginResultBean.getLoginUser().getEmpId());
+			System.out.println("complete時のセッションempId" + loginResultBean.getLoginUser().getEmpId());
+			return "redirect:/update/complete";
+		}
 	}
 
 	/**
@@ -105,7 +116,9 @@ public class UpdateController {
 	 * @return 遷移先ビュー
 	 */
 	@RequestMapping(path = "/update/complete", method = RequestMethod.GET)
-	public String completeUpdate() {
+	public String completeUpdate(HttpSession session) {
+		Integer empId = (Integer) session.getAttribute("empId");
+	    System.out.println("リダイレクト後のempId: " + empId);
 		return "update/update_complete";
 	}
 

@@ -40,6 +40,7 @@ public class IndexController {
 			LoginResultBean loginResultBean = loginService.execute(loginForm);
 			if (loginResultBean.isLogin()) {
 				sesson.setAttribute("loginUser", loginResultBean.getLoginUser());
+				System.out.println("login時のセッションempId:" + loginResultBean.getLoginUser().getEmpId());
 				path = "redirect:/list";
 			} else {
 				model.addAttribute("errMessage", loginResultBean.getErrorMsg());
