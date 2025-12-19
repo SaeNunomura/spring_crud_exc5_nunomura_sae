@@ -6,6 +6,9 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
 <title>社員管理システム</title>
+
+
+<th:block th:replace="${jsFragment} ?: ~{}"></th:block>
 </head>
 <body>
 	<!--/* ヘッダー */-->
@@ -26,5 +29,8 @@
 	<footer>
 		<div th:replace="~{common/footer :: layout-footer}"></div>
 	</footer>
+	
+	<script src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/js/passDisplay.js}" type="text/javascript"></script>
 </body>
 </html>

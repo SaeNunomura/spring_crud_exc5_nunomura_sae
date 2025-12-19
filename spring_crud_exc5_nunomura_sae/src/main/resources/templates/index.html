@@ -28,7 +28,11 @@
 				<div class="login_form">
 				<div class="login_label">パスワード</div>
 				<div class="login_input">
-					<input type="password" th:field="*{empPass}" />
+					<input type="password" id="index_pass" th:field="*{empPass}" />
+				</div>
+				<div class="pass_display_group">
+					<input type="checkbox" id="pass_display">
+					<label for="pass_display">パスワードを表示する</label>
 				</div>
 				</div>
 				<div class="login_form">
@@ -41,5 +45,6 @@
 		</div>
 	</div>
 	</th:block>
+
 </body>
 </html>

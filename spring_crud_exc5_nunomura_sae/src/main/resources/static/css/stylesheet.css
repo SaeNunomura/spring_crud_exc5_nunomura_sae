@@ -130,6 +130,11 @@ div.login_input {
 	height: 35px;
 	text-align: left;
 }
+
+.pass_display_group {
+	margin-left: -230px;
+    margin-top: 1px;
+}
  
 
 /* ---- 処理完了メッセージの出力箇所 ---- */
