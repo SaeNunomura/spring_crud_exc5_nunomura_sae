@@ -1,39 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+
 <head>
 	<title>会員登録入力 | シェアードショップ</title>
 	<meta charset="UTF-8" />
 </head>
+
 <body class="admin user_regist_input_admin">
 	<h3>社員登録入力画面</h3>
-	
+
 	<div class="update">
 		<form th:action="@{/regist/check}" method="post" th:object="${employeeForm}">
 			<div class="form">
 				<div class="label">パスワード：</div>
 				<div class="input required">
-					<input type="password" th:field="*{empPass}" />
+					<input type="password" id="regist_pass" th:field="*{empPass}" />
 					<span th:errors="*{empPass}" class="input_errMessage"></span>
 				</div>
 			</div>
-			
+			<div class="pass_display_group_regist">
+				<input type="checkbox" id="pass_display_regist">
+				<label for="pass_display_regist">パスワードを表示する</label>
+			</div>
+
+			<div class="form">
+				<div class="label">パスワード(確認用)：</div>
+				<div class="input required">
+					<input type="password" id="regist_pass_confirm" />
+					<div id="confirm_errMessage"></div>
+				</div>
+			</div>
+			<div class="pass_display_group_regist">
+				<input type="checkbox" id="pass_display_regist_confirm">
+				<label for="pass_display_regist_confirm">パスワードを表示する</label>
+			</div>
+
 			<div class="form">
 				<div class="label">社員名：</div>
- 				<div class="input required">
+				<div class="input required">
 					<input type="text" th:field="*{empName}" />
 					<span th:errors="*{empName}" class="input_errMessage"></span>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">性別：</div>
 				<div class="input">
-					<input type="radio" th:field="*{gender}" value="1" />男性
-					<input type="radio" th:field="*{gender}" value="2" />女性
+					<input type="radio" id="gender1" th:field="*{gender}" value="1" /><label for="gender1">男性</label>
+					<input type="radio" id="gender2" th:field="*{gender}" value="2" /><label for="gender2">女性</label>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">住所：</div>
 				<div class="input required">
@@ -41,7 +58,7 @@
 					<span th:errors="*{address}" class="input_errMessage"></span>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label">生年月日：(YYYY/MM/DD)</div>
 				<div class="input required">
@@ -53,8 +70,8 @@
 			<div class="form">
 				<div class="label">権限：</div>
 				<div class="input">
-					<input type="radio" th:field="*{authority}" value="1" />一般
-					<input type="radio" th:field="*{authority}" value="2" />管理者
+					<input type="radio" id="authority1" th:field="*{authority}" value="1" /><label for="authority1">一般</label>
+					<input type="radio" id="authority2"  th:field="*{authority}" value="2" /><label for="authority2">管理者</label>
 				</div>
 			</div>
 
@@ -68,7 +85,7 @@
 					</select>
 				</div>
 			</div>
-			
+
 			<div class="form">
 				<div class="label"></div>
 				<div class="input">
@@ -76,7 +93,7 @@
 				</div>
 			</div>
 		</form>
-		
+
 		<form th:action="@{/list}" name="back">
 			<div class="form">
 				<div class="label"></div>
@@ -85,6 +102,7 @@
 				</div>
 			</div>
 		</form>
-    </div>
+	</div>
 </body>
+
 </html>

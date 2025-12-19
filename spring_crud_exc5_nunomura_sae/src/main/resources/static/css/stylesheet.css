@@ -86,6 +86,22 @@ div.form {
 	margin: 0px auto;
 }
 
+.regist_form {
+	display: flex;
+	width: 550px;
+	margin: 0 auto;
+}
+
+.confirm_errMessage {
+	color: #FF0000;
+	margin-left: 5px;
+	margin-top: -5px;
+}
+
+.pass_display_group_regist {
+	margin: -10px 0 5px 245px;
+}
+
 div.label {
 	display: flex;
 	flex-direction: column;
