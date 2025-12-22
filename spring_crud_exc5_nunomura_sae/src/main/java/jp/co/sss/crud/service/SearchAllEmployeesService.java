@@ -45,7 +45,6 @@ public class SearchAllEmployeesService {
 			empBeanList.get(i).setHireDate(empList.get(i).getHireDate());
 		}
 		
-		
 		return empBeanList;
 	}
 }

@@ -72,7 +72,7 @@ aside select {
 }
 
 aside input[type=submit] {
-	width: 50px;
+	min-width: 50px;
 	margin-right: 5px;
 }
 
