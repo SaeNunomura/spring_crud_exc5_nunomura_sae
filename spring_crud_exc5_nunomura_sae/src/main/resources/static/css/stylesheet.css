@@ -152,6 +152,10 @@ div.login_input {
     margin-top: 1px;
 }
  
+/* ----社員詳細ページ-----*/
+.details_emp_img{
+	text-align: center;
+}
 
 /* ---- 処理完了メッセージの出力箇所 ---- */
 div.message {

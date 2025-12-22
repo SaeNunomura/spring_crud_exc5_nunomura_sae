@@ -1,5 +1,6 @@
 package jp.co.sss.crud.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -41,6 +42,28 @@ public class Employee {
 	@ManyToOne
 	@JoinColumn(name = "dept_id", referencedColumnName = "deptId")
 	private Department department;
+	
+	@Column
+	private LocalDate hireDate;
+	
+	@Column
+	private String empComment;
+
+	public LocalDate getHireDate() {
+		return hireDate;
+	}
+
+	public void setHireDate(LocalDate hireDate) {
+		this.hireDate = hireDate;
+	}
+
+	public String getEmpComment() {
+		return empComment;
+	}
+
+	public void setEmpComment(String empComment) {
+		this.empComment = empComment;
+	}
 
 	public Integer getEmpId() {
 		return empId;

@@ -1,5 +1,6 @@
 package jp.co.sss.crud.bean;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -39,6 +40,16 @@ public class EmployeeBean {
 	/** 部署名 */
 	private String deptName;
 
+	/**入社日 */
+	private LocalDate hireDate;
+
+	/**一言コメント*/
+	private String empComment;
+
+	public LocalDate getHireDate() {
+		return hireDate;
+	}
+
 	/**
 	 * デフォルトコンストラクタ。
 	 * 全てのフィールドがnullまたはデフォルト値で初期化されます。
@@ -60,7 +71,7 @@ public class EmployeeBean {
 	 * @param deptId 部署ID（1:営業部、2:経理部、3:総務部）
 	 */
 	public EmployeeBean(Integer empId, String empPass, String empName, Integer gender, String address, Date birthday,
-			Integer authority, Integer deptId) {
+			Integer authority, Integer deptId, LocalDate hireDate, String empComment) {
 		this.empId = empId;
 		this.empPass = empPass;
 		this.empName = empName;
@@ -69,6 +80,8 @@ public class EmployeeBean {
 		this.birthday = birthday;
 		this.authority = authority;
 		this.deptId = deptId;
+		this.hireDate = hireDate;
+		this.empComment = empComment;
 
 		switch (deptId) {
 		case 1:
@@ -269,6 +282,18 @@ public class EmployeeBean {
 	public void setDeptName(String deptName) {
 
 		this.deptName = deptName;
+	}
+
+	public void setHireDate(LocalDate hireDate) {
+		this.hireDate = hireDate;
+	}
+
+	public String getEmpComment() {
+		return empComment;
+	}
+
+	public void setEmpComment(String empComment) {
+		this.empComment = empComment;
 	}
 
 }

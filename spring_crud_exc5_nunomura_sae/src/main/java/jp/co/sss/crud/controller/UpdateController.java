@@ -46,7 +46,6 @@ public class UpdateController {
 		System.out.println("リクエストempId:" + empId);
 		//TODO SearchForEmployeesByEmpIdService完成後にコメントを外す
 		EmployeeBean employee = searchForEmployeesByEmpIdService.execute(empId);
-
 		employeeForm = BeanManager.copyBeanToForm(employee);
 		model.addAttribute("employeeForm", employee);
 

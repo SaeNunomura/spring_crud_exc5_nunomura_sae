@@ -40,7 +40,13 @@ public class SearchForEmployeesByEmpIdService {
 
 	public EmployeeBean execute(Integer empId) {
 		Employee emp = repository.getReferenceById(empId);
+		System.out.println("サービスクラスにおけるエンティティのhireDate："  + emp.getHireDate());
+		System.out.println("サービスクラスにおけるエンティティのempComment："  + emp.getEmpComment());
 		EmployeeBean empBean = BeanManager.copyEntityToBean(emp) ;
+		empBean.setHireDate(emp.getHireDate());
+		empBean.setEmpComment(emp.getEmpComment());
+		System.out.println("コピー後のhireDate：" + empBean.getHireDate());
+		System.out.println("コピー後のempComment：" + empBean.getEmpComment());
 		return empBean;
 	}
 }
