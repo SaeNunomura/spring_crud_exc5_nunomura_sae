@@ -43,6 +43,8 @@ public class UpdateEmployeeService {
 
 	public LoginResultBean execute(EmployeeForm employeeForm) {
 		Employee emp = BeanManager.copyFormToEntity(employeeForm);
+		emp.setHireDate(employeeForm.getHireDate());
+		emp.setEmpComment(employeeForm.getEmpComment());
 		emp = reposiory.save(emp);
 		EmployeeBean empBean = BeanManager.copyEntityToBean(emp);
 		LoginResultBean loginResultBean = LoginResultBean.succeedLogin(empBean);

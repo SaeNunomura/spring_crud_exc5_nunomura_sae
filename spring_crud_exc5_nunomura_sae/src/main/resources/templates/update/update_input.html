@@ -68,15 +68,7 @@
 				</div>
 			</div>
 
-			<!--			<th:block th:if="${session.loginUser.authority==2}">-->
-			<!--			<div class="form">-->
-			<!--				<div class="label">権限：</div>-->
-			<!--				<div class="input">-->
-			<!--					<input type="radio" th:field="*{authority}" value="1" />一般&nbsp;&nbsp;-->
-			<!--					<input type="radio" th:field="*{authority}" value="2" />管理者-->
-			<!--				</div>-->
-			<!--			</div>-->
-			<!--			</th:block>-->
+
 
 			<div th:switch="${session.loginUser.authority}">
 				<div th:case="1">
@@ -105,6 +97,29 @@
 						<option value="2">経理部</option>
 						<option value="3">総務部</option>
 					</select>
+				</div>
+			</div>
+
+			<div th:switch="${session.loginUser.authority}">
+				<div th:case="1">
+					<input type="hidden" th:field="*{hireDate}" value="${session.loginUser.hireDate}" />
+				</div>
+				<div th:case="2">
+					<div class="form">
+						<div class="label">入社日：(YYYY/MM/DD)</div>
+						<div class="input required">
+							<input type="text" th:field="*{hireDate}" />
+							<span th:errors="*{hireDate}" class="input_errMessage"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form">
+				<div class="label">一言コメント：</div>
+				<div class="input required">
+					<input type="text" th:field="*{empComment}" />
+					<span th:errors="*{empComment}" class="input_errMessage"></span>
 				</div>
 			</div>
 
