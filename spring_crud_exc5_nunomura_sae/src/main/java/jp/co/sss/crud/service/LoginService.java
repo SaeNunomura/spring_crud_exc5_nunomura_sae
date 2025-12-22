@@ -54,7 +54,11 @@ public class LoginService {
 		
 		if(emp != null) {
 			EmployeeBean empBean = BeanManager.copyEntityToBean(emp);
+			empBean.setHireDate(emp.getHireDate());
+			empBean.setEmpComment(emp.getEmpComment());
 			loginResultBean = LoginResultBean.succeedLogin(empBean);
+			System.out.println("LoginServiceでの入社日Bean" + empBean.getHireDate());
+			System.out.println("LoginServiceでのコメントBean" + empBean.getEmpComment());
 		} else {
 			System.out.println("empがnullです");
 			loginResultBean = LoginResultBean.failLogin("社員ID、またはパスワードが間違っています。");

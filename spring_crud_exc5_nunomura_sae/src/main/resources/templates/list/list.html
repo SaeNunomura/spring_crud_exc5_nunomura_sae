@@ -36,6 +36,7 @@
 			<th class="authority">権限</th>
 			</th:block>
 			<th class="deptName">部署名</th>
+			<th class="hireDate">入社日</th>
 <!--			ここに詳細thを挿入-->
 			<th class="button">詳細</th>
 			<th:block th:if="${session.loginUser.authority==2}">
@@ -61,11 +62,12 @@
 			</td>
 			</th:block>
 			<td th:text="${employee.deptName}"></td>
+			<td th:text="${#temporals.format(employee.hireDate, 'yyyy/MM/dd')}"></td>
 <!--			ここに詳細ボタンを挿入-->
 			<td>
 				<form method="get" th:action="@{/details/check}">
 					<input type="hidden" name="empId" th:value="${employee.empId}" />
-					<input type="submit" value="社員詳細" />
+					<input type="submit" value="詳細" />
 				</form>
 			</td>
 			<th:block th:if="${session.loginUser.authority==2}">
