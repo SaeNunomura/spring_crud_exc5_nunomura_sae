@@ -33,7 +33,7 @@ public class IndexController {
 
 		if (result.hasErrors()) {
 			path = "index";
-
+			System.out.println("ログイン入力チェックエラー");
 			return path;
 
 		} else {
@@ -44,13 +44,12 @@ public class IndexController {
 				path = "redirect:/list";
 			} else {
 				model.addAttribute("errMessage", loginResultBean.getErrorMsg());
+				System.out.println("社員ID、またはパスワードが間違っています。");
 				path = "index";
 			}
 
 			return path;
 		}
-
-		//TODO LoginServiceが完成後にコメントを外す
 
 	}
 
