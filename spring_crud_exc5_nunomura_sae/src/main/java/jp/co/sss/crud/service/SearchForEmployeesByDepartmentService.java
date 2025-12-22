@@ -48,6 +48,9 @@ public class SearchForEmployeesByDepartmentService {
 		department.setDeptId(deptId);
 		List<Employee> empList = repository.findByDepartmentOrderByEmpId(department);
 		List<EmployeeBean> empBeanList = BeanManager.copyEntityListToBeanList(empList);
+		for (int i =0; i < empList.size(); i++) {
+			empBeanList.get(i).setHireDate(empList.get(i).getHireDate());
+		}
 		return empBeanList;
 	}
 }

@@ -45,6 +45,9 @@ public class SearchForEmployeesByEmpNameService {
 	public List<EmployeeBean> execute(String searchString) {
 		List<Employee> empList = repository.findByEmpNameContainingOrderByEmpId(searchString);
 		List<EmployeeBean> empBeanList = BeanManager.copyEntityListToBeanList(empList);
+		for (int i =0; i < empList.size(); i++) {
+			empBeanList.get(i).setHireDate(empList.get(i).getHireDate());
+		}
 		return empBeanList;
 	}
 }
