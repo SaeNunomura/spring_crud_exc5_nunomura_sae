@@ -1,5 +1,6 @@
 package jp.co.sss.crud.form;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,13 +14,13 @@ public class EmployeeForm {
 
 	/** パスワード */
 	@NotBlank
-	@Size(min=1,max=16)
+	@Size(min = 1, max = 16)
 	@Pattern(regexp = "[0-9]+")
 	private String empPass;
 
 	/** 社員名 */
 	@NotBlank
-	@Size(min=1,max=30)
+	@Size(min = 1, max = 30)
 	private String empName;
 
 	/** 性別 */
@@ -27,7 +28,7 @@ public class EmployeeForm {
 
 	/** 住所 */
 	@NotBlank
-	@Size(min=1,max=60)
+	@Size(min = 1, max = 60)
 	private String address;
 
 	/** 生年月日 */
@@ -39,6 +40,31 @@ public class EmployeeForm {
 
 	/** 部署ID */
 	private Integer deptId;
+
+	/** 入社日 */
+	@NotNull
+	private LocalDate hireDate;
+
+	/** 一言コメント*/
+	@NotBlank
+	@Size(min = 1, max = 150)
+	private String empComment;
+
+	public LocalDate getHireDate() {
+		return hireDate;
+	}
+
+	public void setHireDate(LocalDate hireDate) {
+		this.hireDate = hireDate;
+	}
+
+	public String getEmpComment() {
+		return empComment;
+	}
+
+	public void setEmpComment(String empComment) {
+		this.empComment = empComment;
+	}
 
 	/**
 	 * 社員IDの取得

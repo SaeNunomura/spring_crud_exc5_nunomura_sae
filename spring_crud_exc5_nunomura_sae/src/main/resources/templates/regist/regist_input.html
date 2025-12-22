@@ -85,6 +85,22 @@
 					</select>
 				</div>
 			</div>
+			
+			<div class="form">
+				<div class="label">入社日：(YYYY/MM/DD)</div>
+				<div class="input required">
+					<input type="text" th:field="*{hireDate}" />
+					<span th:errors="*{hireDate}" class="input_errMessage"></span>
+				</div>
+			</div>
+			
+			<div class="form">
+				<div class="label">一言コメント：</div>
+				<div class="input required">
+					<input type="text" th:field="*{empComment}" />
+					<span th:errors="*{empComment}" class="input_errMessage"></span>
+				</div>
+			</div>
 
 			<div class="form">
 				<div class="label"></div>

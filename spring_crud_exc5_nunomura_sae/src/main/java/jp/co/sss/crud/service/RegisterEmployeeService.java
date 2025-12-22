@@ -41,6 +41,12 @@ public class RegisterEmployeeService {
 
 	public void execute(EmployeeForm employeeForm) {
 		Employee emp = BeanManager.copyFormToEntity(employeeForm);
+		System.out.println("登録時サービスクラスのコメントエンティティ" + emp.getEmpComment());
+		System.out.println("登録時サービスクラスの入社日エンティティ" + emp.getHireDate());
+		emp.setHireDate(employeeForm.getHireDate());
+		emp.setEmpComment(employeeForm.getEmpComment());
+		System.out.println("登録時サービスクラスのコメントエンティティ２" + emp.getEmpComment());
+		System.out.println("登録時サービスクラスの入社日エンティティ２" + emp.getHireDate());
 		emp = repository.save(emp);
 		
 	}
