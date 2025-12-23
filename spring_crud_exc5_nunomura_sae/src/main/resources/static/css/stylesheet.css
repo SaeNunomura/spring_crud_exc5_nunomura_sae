@@ -14,9 +14,26 @@ h3 {
 
 /* ---- 社員登録入力画面へのリンク ---- */
 div.regist_link {
-	padding-right: 35px;
+	display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
 	padding-bottom: 10px;
-	text-align: right;
+}
+
+.regist_link a {
+	display: flex;
+	width: 125px;
+	padding: 3px;
+	justify-content: center;
+	text-decoration: none;
+	background-color: #e2e3e4;
+	border: 1px solid #808080;
+	color: #12526d;
+	border-radius: 10px;
+}
+
+.regist_link a:hover {
+	opacity: 0.8;
 }
 
 /* ---- 社員情報一覧テーブル ---- */
@@ -26,7 +43,6 @@ table {
 	border-width: 1px;
 	border-style: solid;
 	border-collapse: collapse;
-	width: 785px;
 	margin: 0px auto 20px;
 }
 
@@ -45,7 +61,7 @@ th.empId {
 }
 
 th.empName {
-	width: 80px;
+	width: 100px;
 }
 
 th.gender {
@@ -124,7 +140,6 @@ div.input {
 	width: 470px;
 	height: 35px;
 	text-align: left;
-	
 }
 
 select {
@@ -186,6 +201,7 @@ input[type=submit] {
 	padding: 0px 10px;
 	border-radius: 6px;
 	color: #12526d;
+	cursor: pointer;
 }
 
 /* ---- エラーメッセージ ---- */

@@ -27,8 +27,8 @@
 	<!--	該当社員がいる場合-->
 	<table class="list_table" th:if="!${#lists.isEmpty(employees)}">
 		<tr>
-			<th>社員ID</th>
-			<th>社員名</th>
+			<th class="empId">社員ID</th>
+			<th class="empName">社員名</th>
 			<th:block th:if="${session.loginUser.authority==2}">
 			<th class="gender">性別</th>
 			<th class="address">住所</th>

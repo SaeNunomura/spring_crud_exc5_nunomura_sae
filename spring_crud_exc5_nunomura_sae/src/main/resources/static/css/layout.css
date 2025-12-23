@@ -12,7 +12,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content:space-between;
-	width: 920px;
+	width: 1100px;
 	margin: 0px auto;
 }
 
@@ -79,7 +79,7 @@ aside input[type=submit] {
 /* ---- メイン ---- */
 article {
 	
-	width: 700px;
+	width: 900px;
 	padding-left: 20px;
 }
 
