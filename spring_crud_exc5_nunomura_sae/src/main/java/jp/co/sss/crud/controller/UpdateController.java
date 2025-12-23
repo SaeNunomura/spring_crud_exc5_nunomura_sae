@@ -1,5 +1,6 @@
 package jp.co.sss.crud.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import jakarta.validation.Valid;
 import jp.co.sss.crud.bean.EmployeeBean;
 import jp.co.sss.crud.bean.LoginResultBean;
 import jp.co.sss.crud.form.EmployeeForm;
+import jp.co.sss.crud.service.SaveEmployeeImgService;
 import jp.co.sss.crud.service.SearchForEmployeesByEmpIdService;
 import jp.co.sss.crud.service.UpdateEmployeeService;
 import jp.co.sss.crud.util.BeanManager;
@@ -29,6 +32,9 @@ public class UpdateController {
 
 	@Autowired
 	UpdateEmployeeService updateEmployeeService;
+	
+	@Autowired
+	SaveEmployeeImgService saveEmployeeImgService;
 
 	/**
 	 * 社員情報の変更内容入力画面を出力
@@ -60,18 +66,22 @@ public class UpdateController {
 	 * @param model
 	 *            モデル
 	 * @return 遷移先のビュー
+	 * @throws IOException 
 	 */
 	@RequestMapping(path = "/update/check", method = RequestMethod.POST)
-	public String checkUpdate(@Valid @ModelAttribute EmployeeForm employeeForm,  BindingResult result, Model model) {
+	public String checkUpdate(@Valid @ModelAttribute EmployeeForm employeeForm, BindingResult result,
+			@RequestParam("empImg") MultipartFile empImg, HttpSession session, Model model) throws IOException {
 
 		if (result.hasErrors()) {
 			return "update/update_input";
 		} else {
 			System.out.println("check時のリクエストempId:" + employeeForm.getEmpId());
+			if(!empImg.isEmpty()) {
+				session.setAttribute("empImgBytes", empImg.getBytes());
+			}
 			return "update/update_check";
 		}
-		
-		
+
 	}
 
 	/**
@@ -91,16 +101,21 @@ public class UpdateController {
 	 * @param employeeForm
 	 *            変更対象の社員情報
 	 * @return 遷移先のビュー
+	 * @throws IOException 
 	 */
 	@RequestMapping(path = "/update/complete", method = RequestMethod.POST)
-	public String completeUpdate(EmployeeForm employeeForm, HttpSession session,HttpServletRequest request) {
+	public String completeUpdate(EmployeeForm employeeForm, HttpSession session, HttpServletRequest request) throws IOException {
 
 		//TODO UpdateEmployeeService完成後にコメントを外す
 		LoginResultBean loginResultBean = updateEmployeeService.execute(employeeForm);
+		Integer empId = employeeForm.getEmpId();
+		saveEmployeeImgService.execute(empId, session);
+		
 		EmployeeBean loginUserBean = (EmployeeBean) request.getSession().getAttribute("loginUser");
-		if(loginUserBean.getAuthority() == 2 && loginUserBean.getEmpId() != loginResultBean.getLoginUser().getEmpId()) {
-				System.out.println("complete時のリクエストempId" + loginUserBean.getEmpId());
-				return "redirect:/update/complete";
+		if (loginUserBean.getAuthority() == 2
+				&& loginUserBean.getEmpId() != loginResultBean.getLoginUser().getEmpId()) {
+			System.out.println("complete時のリクエストempId" + loginUserBean.getEmpId());
+			return "redirect:/update/complete";
 		} else {
 			session.setAttribute("loginUser", loginResultBean.getLoginUser());
 			session.setAttribute("empId", loginResultBean.getLoginUser().getEmpId());
@@ -117,7 +132,7 @@ public class UpdateController {
 	@RequestMapping(path = "/update/complete", method = RequestMethod.GET)
 	public String completeUpdate(HttpSession session) {
 		Integer empId = (Integer) session.getAttribute("empId");
-	    System.out.println("リダイレクト後のempId: " + empId);
+		System.out.println("リダイレクト後のempId: " + empId);
 		return "update/update_complete";
 	}
 
