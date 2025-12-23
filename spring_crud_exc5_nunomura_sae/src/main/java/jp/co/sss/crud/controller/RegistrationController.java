@@ -1,5 +1,7 @@
 package jp.co.sss.crud.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,10 +9,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jp.co.sss.crud.entity.Employee;
 import jp.co.sss.crud.form.EmployeeForm;
 import jp.co.sss.crud.service.RegisterEmployeeService;
+import jp.co.sss.crud.service.SaveEmployeeImgService;
 import jp.co.sss.crud.util.Constant;
 
 @Controller
@@ -18,6 +25,9 @@ public class RegistrationController {
 
 	@Autowired
 	private RegisterEmployeeService service;
+
+	@Autowired
+	SaveEmployeeImgService saveEmployeeImgService;
 
 	/**
 	 * 社員情報の登録内容入力画面を出力
@@ -41,13 +51,21 @@ public class RegistrationController {
 	 * @param model
 	 *            モデル
 	 * @return 遷移先のビュー
+	 * @throws IOException 
 	 */
 	@RequestMapping(path = "/regist/check", method = RequestMethod.POST)
-	public String checkRegist(@Valid @ModelAttribute EmployeeForm employeeForm, BindingResult result, Model model) {
+	public String checkRegist(@Valid @ModelAttribute EmployeeForm employeeForm, BindingResult result,
+			@RequestParam("empImg") MultipartFile empImg, HttpSession session, Model model) throws IOException {
 
 		if (result.hasErrors()) {
 			return "regist/regist_input";
 		} else {
+			if (!empImg.isEmpty()) {
+		        session.setAttribute("empImgBytes", empImg.getBytes());
+		        session.setAttribute("empImgName", empImg.getOriginalFilename());
+		    }
+			System.out.println("登録チェックコントローラ: empImage isEmpty = " + empImg.isEmpty());
+		    System.out.println("登録チェックコントローラ: empImage size = " + empImg.getSize());
 			return "regist/regist_check";
 		}
 	}
@@ -69,13 +87,18 @@ public class RegistrationController {
 	 * @param employeeForm
 	 *            登録対象の社員情報
 	 * @return リダイレクト：完了画面
+	 * @throws IOException 
 	 */
 	@RequestMapping(path = "/regist/complete", method = RequestMethod.POST)
-	public String completeRegist(EmployeeForm employeeForm) {
+	public String completeRegist(EmployeeForm employeeForm, HttpSession session) throws IOException {
 
 		//登録実行
 		//TODO RegisterEmployeeService完成後にコメントを外す
-		service.execute(employeeForm);
+		
+		Employee emp = service.execute(employeeForm);
+		Integer empId = emp.getEmpId();
+		
+		saveEmployeeImgService.execute(empId, session);
 
 		return "redirect:/regist/complete";
 	}

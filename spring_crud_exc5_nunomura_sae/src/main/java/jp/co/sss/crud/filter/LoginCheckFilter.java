@@ -14,7 +14,7 @@ public class LoginCheckFilter extends HttpFilter {
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String requestURL = request.getRequestURI();
-		if (requestURL.indexOf("/html/") != -1 || requestURL.indexOf("/css/") != -1 || requestURL.indexOf("/img/") != -1
+		if (requestURL.indexOf("/html/") != -1 || requestURL.indexOf("/css/") != -1 || requestURL.indexOf("/images/") != -1
 				|| requestURL.indexOf("/js/") != -1 || requestURL.indexOf("/login") != -1
 				|| requestURL.indexOf("/logout") != -1
 				|| requestURL.endsWith("/spring_crud/")) {

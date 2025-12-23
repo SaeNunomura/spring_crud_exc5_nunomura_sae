@@ -31,6 +31,7 @@ public class DetailsController {
 		model.addAttribute("serviceMonth", period.getMonths());
 		System.out.println("コントローラでのhireDate:" + employee.getHireDate());
 		System.out.println("コントローラでのempComment:" + employee.getEmpComment());
+		System.out.println("コントローラでのempId:" + employee.getEmpId());
 
 		return "detail/details";
 	}

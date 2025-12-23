@@ -39,7 +39,7 @@ public class RegisterEmployeeService {
 	 */
 	//TODO ここに記述
 
-	public void execute(EmployeeForm employeeForm) {
+	public Employee execute(EmployeeForm employeeForm) {
 		Employee emp = BeanManager.copyFormToEntity(employeeForm);
 		System.out.println("登録時サービスクラスのコメントエンティティ" + emp.getEmpComment());
 		System.out.println("登録時サービスクラスの入社日エンティティ" + emp.getHireDate());
@@ -48,6 +48,6 @@ public class RegisterEmployeeService {
 		System.out.println("登録時サービスクラスのコメントエンティティ２" + emp.getEmpComment());
 		System.out.println("登録時サービスクラスの入社日エンティティ２" + emp.getHireDate());
 		emp = repository.save(emp);
-		
+		return emp;
 	}
 }

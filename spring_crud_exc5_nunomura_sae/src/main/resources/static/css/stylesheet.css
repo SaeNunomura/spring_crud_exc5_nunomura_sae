@@ -159,7 +159,16 @@ div.login_input {
  
 /* ----社員詳細ページ-----*/
 .details_emp_img{
+	margin: 20px 0;
 	text-align: center;
+}
+
+.details_table {
+	width: 500px;
+}
+
+.details_table th {
+	width: 120px;
 }
 
 /* ---- 処理完了メッセージの出力箇所 ---- */

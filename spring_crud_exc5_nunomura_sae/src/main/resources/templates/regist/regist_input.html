@@ -10,7 +10,15 @@
 	<h3>社員登録入力画面</h3>
 
 	<div class="update">
-		<form th:action="@{/regist/check}" method="post" th:object="${employeeForm}">
+		<form th:action="@{/regist/check}" method="post" th:object="${employeeForm}" enctype="multipart/form-data">
+			
+			<div class="form">
+				<div class="label">顔写真：</div>
+				<div class="input required">
+					<input type="file" name="empImg" accept="image/*">
+				</div>
+			</div>
+			
 			<div class="form">
 				<div class="label">パスワード：</div>
 				<div class="input required">
