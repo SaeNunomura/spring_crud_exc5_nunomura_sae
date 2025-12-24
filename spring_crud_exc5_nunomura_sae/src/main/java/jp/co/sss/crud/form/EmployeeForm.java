@@ -5,6 +5,7 @@ import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -14,13 +15,12 @@ public class EmployeeForm {
 
 	/** パスワード */
 	@NotBlank
-	@Size(min = 1, max = 16)
-	@Pattern(regexp = "[0-9]+")
+	@Pattern(regexp = "^[a-zA-Z0-9]{0,16}$")
 	private String empPass;
 
 	/** 社員名 */
 	@NotBlank
-	@Size(min = 1, max = 30)
+	@Size(max = 30)
 	private String empName;
 
 	/** 性別 */
@@ -28,11 +28,12 @@ public class EmployeeForm {
 
 	/** 住所 */
 	@NotBlank
-	@Size(min = 1, max = 60)
+	@Size(max = 60)
 	private String address;
 
 	/** 生年月日 */
 	@NotNull
+	@Past
 	private Date birthday;
 
 	/** 権限 */
@@ -43,11 +44,12 @@ public class EmployeeForm {
 
 	/** 入社日 */
 	@NotNull
+	@Past
 	private LocalDate hireDate;
 
 	/** 一言コメント*/
 	@NotBlank
-	@Size(min = 1, max = 150)
+	@Size(max = 30)
 	private String empComment;
 
 	public LocalDate getHireDate() {
